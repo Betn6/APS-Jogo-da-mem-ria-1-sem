@@ -1,52 +1,79 @@
-# Prerequisites
-*.d
+///JOGO DA MEMÓRIA///
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <windows.h>
+#include <conio.h>
+#include <time.h>
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+int main(void){
+    //variáveis
+    int i = 0, j = 0, acertos = 0;
+    char c;
+    int numeros[5];
+    int respostas[5];
+    char r = 's';
+    while (r == 's') {
 
-# Linker output
-*.ilk
-*.map
-*.exp
+    setlocale(LC_ALL, "Portuguese");
+    //título do programa
+    SetConsoleTitle("Jogo da Memoria");
 
-# Precompiled Headers
-*.gch
-*.pch
+    srand(time(NULL));// gerar os números aleatórios
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+    printf ("\nEste jogo irá gerar 5 números aleatórios entre 1 e 100.\n\n");
+    printf ("Você deve decorar os números exibidos em 5 segundos.\n\n");
+    printf ("Pressione ENTER para começar a jogar");
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+    do{
+        c = getch();
+    }while (c != 13);
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+    for (i=0;i<5;i++){
+        numeros[i] = (rand() % 100)+1;
+    }
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+    j=5;
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+    do{
+        system ("cls");
+        printf ("Decore os numeros abaixo em %d\n\n\n", j);
+        j--;
+        for (i=0;i<5;i++){
+            printf ("%d\t", numeros[i]);
+        }
+        Sleep (1000);
+    }while (j>0);
+
+    system ("cls");
+    printf ("Informe os números que foram exibidos\n\n");
+
+    for (i=0;i<5;i++){
+        printf ("\t%d° número: ", i+1);
+        scanf ("%d", &respostas[i]);
+        if (respostas[i]==numeros[i]){
+            acertos++;
+        }
+    }
+
+    if (acertos==5){
+        printf ("\n\nParabéns!! Sua memória é muito boa :D Confira  os números exibidos e acertados por você:\n\n\t");
+        for (i=0;i<5;i++){
+            printf ("%d\t", numeros[i]);
+        }
+    }
+    else
+    {
+        printf ("\n\n Sua memória não é muito boa :( Veja os números que foram exibidos:\n\n\t");
+        for (i=0;i<5;i++){
+            printf ("%d\t", numeros[i]);
+            }
+
+    }
+          printf("\n\nVocê deseja continuar jogando? [s/n]\n");
+      scanf("\n\n%c", &r);
+   }
+    printf ("\n\n");
+
+    return 0;
+}
